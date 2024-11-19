@@ -93,6 +93,7 @@ def cookiesexample(request):
         #name = request.POST.get("textInput")
         #name = request.COOKIES.get("firstname","x")
         #return HttpResponse(name)
+        #this is new coding
         response = HttpResponseRedirect("/cookiesexample")
         response.delete_cookie("firstname")
         return response
