@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark text-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 fs-4 fw-bold">Shopping</div>
+            <div class="list-group list-group-flush">
+                <a href="/Admindashboard" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="#categoriesSubmenu" class="list-group-item list-group-item-action bg-dark text-white" data-bs-toggle="collapse"><i class="fas fa-th"></i> Shop</a>
+                <div class="collapse" id="categoriesSubmenu">
+                    <a href="/Admincategory" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i> Category </a>
+                    <a href="/AdminSubcategory" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i>Sub Category</a>
+                    <a href="/AdminProduct" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i> Product</a>
+                </div>
+                <a href="#locationSubmenu" class="list-group-item list-group-item-action bg-dark text-white"
+                data-bs-toggle="collapse"><i class="fas fa-map-marker-alt"></i> Location
+                </a>
+                <div class="collapse" id="locationSubmenu">
+                    <a href="/state" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i> State </a>
+                    <a href="/city" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i> City </a>
+                    <!-- <a href="/viewdata1" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i>Sub Category</a>
+                    <a href="/viewdata2" class="list-group-item list-group-item-action bg-secondary ps-4"><i class="fas fa-folder"></i> Product</a> -->
+                </div>
+                
+                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-cog"></i> Home</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                
+            </div>
+        </div>
+        {% block 'main' %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    {% block 'js' %}{% endblock %}
+    <script src="js/script.js"></script>
+</body>
+</html>

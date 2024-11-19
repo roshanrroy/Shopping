@@ -1,0 +1,143 @@
+{% extends 'masterpage.html' %}
+{% load static %}
+{% block 'js' %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}
+{% block 'css' %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">{% endblock %}
+
+{% block 'main' %}
+<!--================================
+        START BREADCRUMB AREA
+    =================================-->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb">
+                        <ul>
+                            <li>
+                                <a href="index-2.html">Home</a>
+                            </li>
+                            <li class="active">
+                                <a href="#">Shopping Cart</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h1 class="page-title">Shopping Cart</h1>
+                </div>
+                <!-- end /.col-md-12 -->
+            </div>
+            <!-- end /.row -->
+        </div>
+        <!-- end /.container -->
+    </section>
+    <!--================================
+        END BREADCRUMB AREA
+    =================================-->
+
+    <!--================================
+            START DASHBOARD AREA
+    =================================-->
+    <section class="cart_area section--padding2 bgcolor">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Additional Information (e.g., Customer Name) -->
+                    <div class="product_archive added_to__cart">
+                    <div class="customer_info">
+                        <div class="title_area"><h3>Order Information</h3></div>
+                        {% if items %}
+                        <p class="col-md-2"><strong>OrderId:</strong>  {{ items.0.order_id.order_id }}</p>
+                        <p class="col-md-12"><strong>Product Category:</strong> {{ items.0.productId.subcat_id.cat_id.categoryName }}</p>
+                        <p class="col-md-12"><strong>Product SubCategory:</strong> {{ items.0.productId.subcat_id.subcategoryName }}</p>
+                        <p class="col-md-12"><strong>Status:</strong> {{ items.0.order_id.status }}</p>
+                        <p class="col-md-12">
+                            <strong>Address:</strong> 
+                            {{ items.0.order_id.address_line1 }}
+                            <!-- {{ item.order_id.address_line2 }}, -->
+                        </p>
+                        <p class="col-md-12">
+                            <strong>Address 2:</strong> 
+                            {{ items.0.order_id.address_line2 }}
+                            <!-- {{ item.order_id.address_line2 }}, -->
+                        </p>
+                        
+                        <p class="col-md-2"><strong>City:</strong> {{items.0.order_id.city_id.cityname }}</p>
+                        <p class="col-md-2"><strong>State:</strong> {{items.0.order_id.city_id.state_id.statename }}</p>
+                        {% endif %}
+                    </div>
+                    </div>
+                    <!-- End of Customer Information -->
+    
+                    <div class="product_archive added_to__cart">
+                        <div class="col-md-12">
+                        <!-- Header Row -->
+                        <div class="title_area">
+                            <div class="row align-items-center text-center">
+                                <div class="col-md-2">
+                                    <h4>Item Id</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Product Image</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Product Name</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Quantity</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Price</h4>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+    
+                        <!-- Products List -->
+                        <div class="row">
+                            {% for item in items %}
+                            <div class="col-md-12">
+                                <div class="single_product clearfix">
+                                    <div class="row align-items-center text-center">
+                                        <div class="col-md-2">
+                                            <span>{{ item.item_id }}</span>
+                                        </div>
+                                        <!-- Product Details -->
+                                        <div class="col-md-2">
+                                            <div class="product__description d-flex align-items-center">
+                                                <img src="{{ item.productId.image1 }}" alt="Product Image" width="80" class="mr-3">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span>{{ item.productId.title }}</span>
+                                        </div>
+    
+                                        <!-- Category -->
+                                        <div class="col-md-2">
+                                            <span>{{ item.qty }}</span>
+                                        </div>
+    
+                                        <!-- Quantity -->
+                                        <div class="col-md-2">
+                                            <span>{{ item.price }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    <!--================================
+            END DASHBOARD AREA
+    =================================-->
+{% endblock %}

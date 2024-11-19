@@ -1,0 +1,111 @@
+body {
+    overflow-x: hidden;
+}
+
+#wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar-wrapper {
+    width: 250px;
+    background: #343a40; /* Dark background for the sidebar */
+}
+
+.sidebar-heading {
+    padding: 15px;
+    font-size: 1.2rem;
+    color: #ffffff; /* White text for the heading */
+}
+
+
+.list-group-item {
+    border: none;
+}
+
+.list-group-item:hover {
+    background-color: #495057; /* Darker hover effect */
+    cursor: pointer;
+}
+
+.collapse {
+    padding-left: 15px; /* Indent the submenu */
+}
+
+#page-content-wrapper {
+    flex: 1;
+    padding: 20px;
+    display: flex; /* Enable flexbox */
+    height: 100vh; /* Full viewport height */
+
+
+}
+
+.table {
+    border-radius: 0.5rem; /* Rounded corners for the table */
+    overflow: hidden; /* Prevents border-radius from affecting the table borders */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Center-align the content vertically */
+}
+
+.category-image {
+    width: 50px; /* Set a fixed width for images */
+    height: 50px; /* Set a fixed height for images */
+    object-fit: cover; /* Crop the image if it does not match the aspect ratio */
+    border-radius: 0.5rem; /* Optional: round the corners of images */
+}
+
+.btn {
+    margin-right: 5px; /* Space between action buttons */
+}
+
+.btn-info {
+    background-color: #007bff; /* Custom color for edit button */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Custom color for delete button */
+}
+
+.purchase-button {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the quantity control buttons */
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    background-color: #0674ec; /* Amazon orange */
+    color: white; /* White text color */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+    padding: 5px 10px;
+    font-size: 18px;
+}
+
+.qty-btn:hover {
+    background-color:#0674ec; /* Darker orange on hover */
+}
+
+.qty-input {
+    width: 50px;
+    text-align: center; /* Center text in the input */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px; /* Larger font size */
+    margin: 0 5px; /* Space between input and buttons */
+}
+
+
+
+
+

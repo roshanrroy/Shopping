@@ -1,0 +1,148 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block 'main' %}
+<div id="page-content-wrapper">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h2>Update Product</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="parentCategory" class="form-label">Parent Category</label>
+                                <select onchange="loadsubcat(this.value);" class="form-control" id="parentCategory" name="parentCategory" required>
+                                    <option value="" selected disabled>Select Category</option>
+                                    {% for row in category %}
+                                        <option {% if product.subcat_id.cat_id.cat_id == row.cat_id  %} selected {% endif %}value="{{ row.cat_id }}">{{ row.categoryName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subcat">Subcategory Name</label>
+                                <select class="form-control" id="subcat" name="subcat">
+                                    <option>Please Select Subcategory</option>
+                                  
+                                </select>
+                            </div>
+                            
+                            <!-- Product Title -->
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Product Title</label>
+                                <input type="text" class="form-control" id="title" name="title" value="{{ product.title }}" required>
+                            </div>
+                    
+                            <!-- Descriptions -->
+                            <div class="mb-3">
+                                <label for="descriptions" class="form-label">Descriptions</label>
+                                <textarea class="form-control" id="descriptions" name="descriptions" rows="3" required>{{ product.descriptions }}</textarea>
+                            </div>
+                    
+                            <!-- Price -->
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ product.price }}" required>
+                            </div>
+                    
+                            <!-- Sell Price -->
+                            <div class="mb-3">
+                                <label for="sellPrice" class="form-label">Sell Price</label>
+                                <input type="number" step="0.01" class="form-control" id="sellPrice" name="sellPrice" value="{{ product.sellPrice }}" required>
+                            </div>
+                    
+                            <!-- Image 1 -->
+                            <div class="mb-3">
+                                <label for="image1" class="form-label">Product Image 1</label>
+                                <input type="file" class="form-control" id="image1" name="image1" accept="image/*">
+                                <img src="{{ product.image1 }}" width="100" class="mt-2">
+                            </div>
+                    
+                            <!-- Image 2 -->
+                            <div class="mb-3">
+                                <label for="image2" class="form-label">Product Image 2</label>
+                                <input type="file" class="form-control" id="image2" name="image2" accept="image/*">
+                                {% if product.image2 %}
+                                <img src="{{ product.image2 }}" width="100" class="mt-2">
+                                {% endif %}
+                            </div>
+                    
+                            <!-- Image 3 -->
+                            <div class="mb-3">
+                                <label for="image3" class="form-label">Product Image 3</label>
+                                <input type="file" class="form-control" id="image3" name="image3" accept="image/*">
+                                {% if product.image3 %}
+                                <img src="{{ product.image3 }}" width="100" class="mt-2">
+                                {% endif %}
+                            </div>
+                    
+                            <!-- Video URL -->
+                            <div class="mb-3">
+                                <label for="videoUrl" class="form-label">Video URL</label>
+                                <input type="url" class="form-control" id="videoUrl" name="videoUrl" value="{{ product.videoUrl }}">
+                            </div>
+                    
+                            <!-- Is Active -->
+                            <div class="mb-3">
+                                <label for="isActive">Is Active</label><br>
+                                <input type="radio" id="active_yes" name="isActive" value="yes" {% if product.isActive %}checked{% endif %}> Yes
+                                <input type="radio" id="active_no" name="isActive" value="no" {% if not product.isActive %}checked{% endif %}> No
+                            </div>
+                    
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-success w-100">Update Product</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block 'js' %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function(){
+        loadsubcat({{product.subcat_id.cat_id.cat_id}},{{product.subcat_id.subcat_id}})
+    });
+    function loadsubcat(cid,sid="")
+    {
+        $.ajax({
+            url:"/subcatbycat",
+            method:"POST",
+            data:{"cid":cid},
+            success:function(json)
+            {
+                var op = "<option>Please select Subcategory</option>";
+                $.each(json,(key,obj)=>{
+                    if(sid!="")
+                    {
+                        if(sid == obj.subcat_id)
+                        {
+                            op = op + "<option selected value='"+obj.subcat_id+"'>"+obj.subcategoryName+"</option>";
+                        }
+                        else
+                        {
+                            op = op + "<option value='"+obj.subcat_id+"'>"+obj.subcategoryName+"</option>";
+                        }
+                        
+                    }
+                    else
+                    {
+                        op = op + "<option value='"+obj.subcat_id+"'>"+obj.subcategoryName+"</option>";
+                    }
+                    
+                })
+                $("#subcat").html(op);
+            },
+            error:function(error)
+            {
+                console.log(error);
+            }
+        });
+    }
+</script>
+{% endblock %}

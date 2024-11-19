@@ -1,0 +1,50 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block 'main' %}
+<div id="page-content-wrapper">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h2>Add New SubCategory</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="POST" enctype="multipart/form-data" id="addSubcategoryForm">
+                            {% csrf_token %}
+
+                               <!-- Parent Category Dropdown -->
+                               <div class="mb-3">
+                                <label for="parentCategory" class="form-label">Parent Category</label>
+                                <select class="form-control" id="parentCategory" name="parentCategory" required>
+                                    <option value="" selected disabled>Select Category</option>
+                                    {% for row in subcategory %}
+                                        <option value="{{ row.cat_id }}">{{ row.categoryName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Subcategory Name -->
+                            <div class="mb-3">
+                                <label for="subcategoryName" class="form-label">Subcategory Name</label>
+                                <input type="text" class="form-control" id="subcategoryName" name="subcategoryName" placeholder="Enter subcategory name" required>
+                            </div>
+
+                         
+
+                            <!-- Subcategory Image -->
+                            <div class="mb-3">
+                                <label for="subcategoryImage" class="form-label">Subcategory Image</label>
+                                <input type="file" class="form-control" id="subcategoryImage" name="subcategoryImage" accept="image/*" required>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-dark w-100">Add Subcategory</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

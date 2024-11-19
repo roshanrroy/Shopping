@@ -1,0 +1,60 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block 'main' %}
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="container my-5">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h2>Subcategories</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <!-- Button to add new subcategory, styled in black -->
+                    <a href="/adddata1" class="btn btn-dark">Add Subcategory</a>
+                </div>
+            </div>
+
+            <!-- Display messages if any -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Table for displaying subcategories -->
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th> <!-- Display parent category -->
+                        <th>Image</th>
+                        <th style="width: 15%;">Actions</th> <!-- Reduced width for actions -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in subcategory %}
+                    <tr>
+                        <td>{{ row.subcat_id }}</td>
+                        <td>{{ row.subcategoryName }}</td>
+                        <td>{{ row.cat_id.categoryName }}</td> <!-- Parent Category Name -->
+                        <td>
+                            <a href="{{ row.subcategoryImage }}" target="_blank">
+                                <img src="{{ row.subcategoryImage }}" width="100" />
+                            </a>
+                        </td>
+                        <td>
+                            <!-- Smaller buttons for actions -->
+                            <a href="/deletedata1/{{ row.subcat_id }}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="/editdata1/{{ row.subcat_id }}" class="btn btn-danger btn-sm">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

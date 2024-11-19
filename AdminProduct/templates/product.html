@@ -1,0 +1,74 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block 'main' %}
+<div id="page-content-wrapper">
+    <div class="container my-5">
+        <div class="container-fluid">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h2>Product List</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="/adddata2" class="btn btn-dark">Add Product</a>
+                </div>
+            </div>
+
+            <!-- Display messages if any -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Table for displaying products -->
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Subcategory</th>
+                        <th>Title</th>
+                        <th>Descriptions</th>
+                        <th>Price</th>
+                        <th>Sell Price</th>
+                        <th>Images</th>
+                        <th>Video URL</th>
+                        <th>Is Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.productId }}</td>
+                        <td>{{product.subcat_id.subcategoryName}}</td>
+                        <td>{{ product.title }}</td>
+                        <td>{{ product.descriptions }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.sellPrice }}</td>
+                        <td>
+                            <a href="{{ product.image1 }}" target="_blank">
+                                <img src="{{ product.image1 }}" width="50" alt="Image 1" />
+                            </a>
+                            <a href="{{ product.image2 }}" target="_blank">
+                                <img src="{{ product.image2 }}" width="50" alt="Image 2" />
+                            </a>
+                            <a href="{{ product.image3 }}" target="_blank">
+                                <img src="{{ product.image3 }}" width="50" alt="Image 3" />
+                            </a>
+                        </td>
+                        <td><a href="{{ product.videoUrl }}" target="_blank">{{ product.videoUrl }}</a></td>
+                        <td>{{ product.isActive }}</td>
+                        <td>
+                            <a href="/deletedata2/{{ product.productId }}" class="btn btn-warning">Delete</a>
+                            <a href="/editdata2/{{ product.productId }}" class="btn btn-danger">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

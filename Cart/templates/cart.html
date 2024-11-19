@@ -1,0 +1,138 @@
+{% extends 'masterpage.html' %}
+{% load static %}
+{% block 'js' %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}
+{% block 'css' %}<link rel="stylesheet" href="{% static 'css/style.css' %}">{% endblock %}
+
+{% block 'main' %}
+<!--================================
+        START BREADCRUMB AREA
+    =================================-->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb">
+                        <ul>
+                            <li>
+                                <a href="index-2.html">Home</a>
+                            </li>
+                            <li class="active">
+                                <a href="#">Shopping Cart</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h1 class="page-title">Shopping Cart</h1>
+                </div>
+                <!-- end /.col-md-12 -->
+            </div>
+            <!-- end /.row -->
+        </div>
+        <!-- end /.container -->
+    </section>
+    <!--================================
+        END BREADCRUMB AREA
+    =================================-->
+
+    <!--================================
+            START DASHBOARD AREA
+    =================================-->
+    <section class="cart_area section--padding2 bgcolor">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product_archive added_to__cart">
+                        <!-- Header Row -->
+                        <div class="title_area">
+                            <div class="row align-items-center text-center">
+                                <div class="col-md-5">
+                                    <h4>Product Details</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Quantity</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Price</h4>
+                                </div>
+                                <div class="col-md-1">
+                                    <h4>Total</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Remove</h4>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Products List -->
+                        <div class="row">
+                            {% for cart in cartdata %}
+                            <div class="col-md-12">
+                                <div class="single_product clearfix">
+                                    <div class="row align-items-center text-center">
+                                        <!-- Product Details -->
+                                        <div class="col-md-5">
+                                            <div class="product__description d-flex align-items-center">
+                                                <img src="{{ cart.productId.image1 }}" alt="Product Image" width="80" class="mr-3">
+                                                <div class="short_desc">
+                                                    <a href="single-product.html">
+                                                        <h4>{{ cart.productId.title }}</h4>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <!-- Category -->
+                                        <div class="col-md-2">
+                                            <span>{{ cart.qty }}</span>
+                                        </div>
+    
+                                        <!-- Quantity -->
+                                        <div class="col-md-2">
+                                            <span>{{ cart.price }}</span>
+                                        </div>
+    
+                                        <!-- Price -->
+                                        <div class="col-md-1">
+                                            <span> {{ cart.total_price }}</span>
+                                        </div>
+    
+                                        <!-- Remove Button -->
+                                        <div class="col-md-2">
+                                            <a href="delete_cart_item/{{ cart.cart_id }}" class="remove_from_cart">
+                                                <span class="lnr lnr-trash"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+    
+                        <!-- Cart Total Section -->
+                        <div class="row">
+                            <div class="col-md-6 offset-md-6">
+                                <div class="cart_calculation">
+                                    <div class="cart--subtotal">
+                                        <p><span>Cart Subtotal</span> {{ subtotal }}</p>
+                                    </div>
+                                    <div class="cart--total">
+                                        <p><span>Subtotal:</span> {{ subtotal }}</p>
+                                    </div>
+                                    <a href="/checkout" class="btn btn--round btn--md checkout_link">Proceed To Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!--================================
+            END DASHBOARD AREA
+    =================================-->
+{% endblock %}

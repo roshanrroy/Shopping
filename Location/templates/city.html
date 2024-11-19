@@ -1,0 +1,86 @@
+{% extends 'master.html' %}
+{% load static %}
+
+
+{% block 'js' %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+{% endblock %}
+
+{% block 'main' %}
+
+<div id="page-content-wrapper">
+    <div class="container my-5">
+        <div class="container-fluid">
+            <div class="container-fluid mt-3">
+
+                <div class="row">
+                    <div class="col">
+                        {% if messages %}
+
+                        {% for message in messages %}
+                        <div class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                        {% endfor %}
+
+                        {% endif %}
+                        <h1>Add City</h1>
+                        <form id="cityForm" enctype="multipart/form-data" method="POST" class="mt-4">
+                            {% csrf_token %}
+                            
+                            <!-- State Selection -->
+                            <div class="form-group mb-3">
+                                <label for="state">State Name</label>
+                                <select class="form-control" id="state" name="state">
+                                    <option>Please Select State</option>
+                                    {% for row in statedata %}
+                                    <option value="{{row.state_id}}">{{ row.statename }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        
+                            <!-- City Name Input -->
+                            <div class="form-group mb-3">
+                                <label for="cityname">City Name</label>
+                                <input type="text" class="form-control" id="cityname" name="cityname" placeholder="Enter city name">
+                            </div>
+                        
+                            <!-- Submit Button -->
+                            <div class="form-group mb-3">
+                                <button class="btn btn-dark w-100" type="submit">Add</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                    <div class="col">
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+
+                                <tr>
+                                    <th>ID</th>
+                                    <th>State Name</th>
+                                    <th>City Name</th>
+
+                                    <!-- <th colspan="2" class="text-center">Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody id="cityTableBody">
+
+                                {% for row in city %}
+                                <tr>
+                                    <td>{{row.city_id}}</td>
+                                    <td>{{row.state_id.statename}}</td>
+                                    <td>{{row.cityname}}</td>
+
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Razorpay Payment</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Complete your Payment</h2>
+    <form action="{{ callback_url }}" method="POST" id="">
+        {% csrf_token %}
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+        <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+        <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+
+
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <input type="hidden" name="mobile" value="{{ mobile }}">
+        <input type="hidden" name="address1" value="{{ address1 }}">
+        <input type="hidden" name="address2" value="{{ address2 }}">
+        <input type="hidden" name="city" value="{{ city }}">
+        <input type="hidden" name="finaltotal" value="{{ finaltotal }}">
+        
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="{{ razorpay_merchant_key }}"
+            data-amount="{{ amount }}"
+            data-currency="{{ currency }}"
+            data-order_id="{{ order_id }}"
+            data-name="MUlTI SHOP"
+            data-description="Test transaction"
+            data-image="https://your_logo_url"
+            data-prefill.name="{{request.user.first_name }}"
+            data-prefill.email="{{ request.user.email }}"
+            data-theme.color="#F37254"
+        ></script>
+    
+    </form>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+       $(document).ready(function(){
+        $(".razorpay-payment-button").click();
+       });
+    </script>   
+</body>
+</html>

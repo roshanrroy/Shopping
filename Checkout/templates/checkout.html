@@ -1,0 +1,196 @@
+{% extends 'masterpage.html' %}
+{% load static %}
+{% block 'js' %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script>
+    function loadState(stateid)
+    {
+        $.ajax({
+            url:"/citybystate",
+            method:"POST",
+            data:{"sid":stateid},
+            success:function(json)
+            {
+                
+                var op = "<option>Please select City</option>";
+                $.each(json,(key,obj)=>{
+                    op = op + "<option value='"+obj.city_id+"'>"+obj.cityname+"</option>";
+                })
+                $("#city").html(op);
+            },
+            error:function(error)
+            {
+                console.log(error);
+            }
+        });
+    }
+</script>
+<script src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}
+{% block 'css' %}<link rel="stylesheet" href="{% static 'css/style.css' %}">{% endblock %}
+
+{% block 'main' %}
+
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb">
+                    <ul>
+                        <li>
+                            <a href="index-2.html">Home</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">Checkout</a>
+                        </li>
+                    </ul>
+                </div>
+                <h1 class="page-title">Checkout</h1>
+            </div>
+            <!-- end /.col-md-12 -->
+        </div>
+        <!-- end /.row -->
+    </div>
+    <!-- end /.container -->
+</section>
+<!--================================
+    END BREADCRUMB AREAx
+=================================-->
+
+<!--================================
+        START DASHBOARD AREA
+=================================-->
+<section class="dashboard-area">
+    <div class="dashboard_contents">
+        <div class="container">
+            <form id="cityForm" action="/create_order" enctype="multipart/form-data" method="POST" class="mt-4" >
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="information_module">
+                            <div class="toggle_title">
+                                <h4>Biling Information </h4>
+                            </div>
+                            
+
+                            <div class="information__set">
+                                <div class="information_wrapper form--fields">
+                                    
+                                            <div class="form-group">
+                                                <label for="name">First Name
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" id="name" name="name" class="text_field" placeholder="First Name"  >
+                                        
+                                    </div>
+                                    <!-- end /.row -->
+
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile No.
+                                            <sup>*</sup>
+                                        </label>
+                                        <input type="number" id="mobile" class="text_field" name="mobile" placeholder="" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email1">Email Adress
+                                            <sup>*</sup>
+                                        </label>
+                                        <input type="text" id="email" class="text_field" name="email" placeholder="Email address" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="state">State Name</label>
+                                        <select onchange="loadState(this.value);" class="text_field" id="state" name="state">
+                                            <option>Please Select State</option>
+                                            {% for row in statedata %}
+                                                <option value="{{ row.state_id }}">{{ row.statename }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+
+
+                                    <div class="form-group">
+                                        <label for="address1">Address Line 1</label>
+                                        <input type="text" id="address1" class="text_field" name="address1" placeholder="Address line one">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address2">Address Line 2</label>
+                                        <input type="text" id="address2" class="text_field" name="address2" placeholder="Address line two">
+                                    </div>
+                                    <div class="form-group">
+                                                <label for="city">City Name</label>
+                                                <select class="text_field" id="city" name="city">
+                                                    <option>Please Select City</option>
+                                                  
+                                                </select>
+                                            </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            
+                        
+                            <!-- end /.information__set -->
+                        </div>
+                        <!-- end /.information_module -->
+                    </div>
+                    <!-- end /.col-md-6 -->
+
+                    <div class="col-lg-6">
+                        <div class="information_module order_summary">
+                            <div class="toggle_title">
+                                <h4>Order Summary</h4>
+                            </div>
+                            {% for cart in cartdata %}
+                            <ul>
+                                <li class="item">
+                                    <a href="single-product.html" target="_blank">Finance and Consulting Business Theme X {{ cart.qty }}</a>
+                                    <span>{{ cart.total_price }}</span>
+
+                                    <input type="text" name="finaltotal" value="{{cart.total_price}}"/>
+                                </li>
+                                {% endfor %}
+                                <li>
+                                    <p>Estimated Taxes & Fees:</p>
+                                    <span>0</span>
+                                </li>
+                                <li class="total_ammount">
+                                    <p>Total</p>
+                                    <span>{{ subtotal }}</span>
+                                </li>
+                                <li><button type="submit" class="btn btn--round btn--default">Confirm Order</button></li>
+                            </ul>
+                            
+                            
+                        </div>
+                        <!-- end /.information_module-->
+
+                        
+                            </div>
+                        </div>
+                        <!-- end /.information_module-->
+                    </div>
+                    <!-- end /.col-md-6 -->
+                </div>
+                <!-- end /.row -->
+            </form>
+            <!-- end /form -->
+        </div>
+        <!-- end /.container -->
+    </div>
+    <!-- end /.dashboard_menu_area -->
+</section>
+{% endblock %}

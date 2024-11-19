@@ -1,0 +1,71 @@
+{% extends 'master.html' %}
+{% load static %}
+
+
+{% block 'js' %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+{% endblock %}
+
+    {% block 'main' %}
+    
+<div id="page-content-wrapper">
+    <div class="container my-5">
+        <div class="container-fluid">
+    <div class="container-fluid mt-3">
+
+        <div class="row">
+            <div class="col">
+                {% if messages %}
+
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                  {{message}}
+                </div>
+                {% endfor %}
+          
+                {% endif %}
+                <h1>Add State</h1>
+                <form id="stateForm" enctype="multipart/form-data" method="POST" class="mt-4" >
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <label for="statename">State Name</label>
+                        <input type="text" class="form-control" id="statename" name="statename" placeholder="Enter state name" >
+                    </div>
+    
+                        <button type="submit" class="btn btn-dark w-100">Add State</button>
+                
+                 
+                   
+                </form>
+            </div>
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        
+                        <tr>
+                            <th>ID</th>
+                            <th>State Name</th>
+                            <!-- <th>State Code </th> -->
+                            <!-- <th colspan="2" class="text-center">Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody id="stateTableBody">
+                       
+                            {% for row in states %}
+                            <tr>
+                                
+                                <td>{{row.state_id}}</td>
+                                <td>{{row.statename}}</td>
+                                <!-- <td>{{row.statecode}}</td> -->
+                            </tr>
+                            {% endfor %}
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

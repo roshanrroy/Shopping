@@ -1,0 +1,58 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block 'main' %}
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="container my-5">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h2>Categories</h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <!-- Button with black color -->
+                    <a href="/adddata" class="btn btn-dark">Add Category</a>
+                </div>
+            </div>
+
+            <!-- Display messages if any -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Table for displaying categories -->
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th style="width: 15%;">Actions</th> <!-- Reduced column width -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in category %}
+                    <tr>
+                        <td>{{ row.cat_id }}</td>
+                        <td>{{ row.categoryName }}</td>
+                        <td>
+                            <a href="{{ row.categoryImage }}" target="_blank">
+                                <img src="{{ row.categoryImage }}" width="80" />
+                            </a>
+                        </td>
+                        <td>
+                            <!-- Smaller buttons using btn-sm class -->
+                            <a href="/deletedata/{{ row.cat_id }}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="/editdata/{{ row.cat_id }}" class="btn btn-danger btn-sm">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
